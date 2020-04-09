@@ -4,20 +4,19 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.util.ArrayList
+import java.util.*
 
 @RestController
 class QuizAppController {
-
-    private val quizzes = ArrayList<String>()
+    private val quizzes: MutableList<Quiz> = ArrayList()
     @GetMapping("/show")
-    fun show():List<String> {
+    fun show(): List<Quiz> {
         return quizzes
     }
 
     @PostMapping("/create")
-    fun create(@RequestParam question:String, @RequestParam answer:Boolean) {
-        val quiz = question + ":" + answer
+    fun create(@RequestParam question: String, @RequestParam answer: Boolean) {
+        val quiz = Quiz(question, answer)
         quizzes.add(quiz)
     }
 }
