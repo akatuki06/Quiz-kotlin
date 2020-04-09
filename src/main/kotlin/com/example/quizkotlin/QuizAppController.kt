@@ -19,4 +19,14 @@ class QuizAppController {
         val quiz = Quiz(question, answer)
         quizzes.add(quiz)
     }
+
+    @GetMapping("/check")
+    fun check(question: String, answer: Boolean): String {
+        for (quiz in quizzes) {
+            if (quiz.question.equals(question)) {
+                return "Found : " + quiz.question
+            }
+        }
+        return "Not Found"
+    }
 }
