@@ -4,11 +4,13 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.io.IOException
 import java.util.*
 
 @RestController
 class QuizAppController {
     private val quizzes: MutableList<Quiz> = ArrayList()
+    private val quizFileDao = QuizFileDao()
     @GetMapping("/show")
     fun show(): List<Quiz> {
         return quizzes
@@ -32,5 +34,16 @@ class QuizAppController {
             }
         }
         return "Not Found"
+    }
+
+    @PostMapping
+    fun save(): String? {
+        return try {
+            quizFileDao.write(quizzes)
+            "OK!"
+        } catch (e: IOException) {
+            e.printStackTrace()
+            "Failed"
+        }
     }
 }
