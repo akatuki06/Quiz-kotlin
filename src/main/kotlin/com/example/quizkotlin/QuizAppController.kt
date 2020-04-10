@@ -23,8 +23,12 @@ class QuizAppController {
     @GetMapping("/check")
     fun check(question: String, answer: Boolean): String {
         for (quiz in quizzes) {
-            if (quiz.question.equals(question)) {
-                return "Found : " + quiz.question
+            if (quiz.question == question) {
+                return if (quiz.answer == answer) {
+                    "正解kt"
+                } else {
+                    "不正解kt"
+                }
             }
         }
         return "Not Found"
