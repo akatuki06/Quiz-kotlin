@@ -20,4 +20,15 @@ class QuizFileDao {
     companion object {
         private const val FILE_PATH = "quizzes.txt"
     }
+
+    @Throws(IOException::class)
+    fun read(): List<Quiz> {
+        val path = Paths.get(FILE_PATH)
+        val lines = Files.readAllLines(path)
+        val quizzes: MutableList<Quiz> = ArrayList()
+        for (line in lines) {
+            quizzes.add(Quiz.fromStoring(line))
+        }
+        return quizzes
+    }
 }
