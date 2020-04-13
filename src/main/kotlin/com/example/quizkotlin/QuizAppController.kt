@@ -9,7 +9,7 @@ import java.util.*
 
 @RestController
 class QuizAppController {
-    private val quizzes: MutableList<Quiz> = ArrayList()
+    private var quizzes: MutableList<Quiz> = ArrayList()
     private val quizFileDao = QuizFileDao()
     @GetMapping("/show")
     fun show(): List<Quiz> {
@@ -41,6 +41,17 @@ class QuizAppController {
         return try {
             quizFileDao.write(quizzes)
             "OK!"
+        } catch (e: IOException) {
+            e.printStackTrace()
+            "Failed"
+        }
+    }
+
+    @GetMapping("/load")
+    fun load(): String? {
+        return try {
+            quizzes = quizFileDao.read() as MutableList<Quiz>
+            "Success Read file"
         } catch (e: IOException) {
             e.printStackTrace()
             "Failed"
