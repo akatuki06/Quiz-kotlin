@@ -7,6 +7,9 @@ import java.util.*
 
 
 class QuizFileDao {
+
+    private val FILE_PATH = "quizzes.txt"
+
     @Throws(IOException::class)
     fun write(quizzes: List<Quiz>) {
         val lines: MutableList<String> = ArrayList()
@@ -15,10 +18,6 @@ class QuizFileDao {
         }
         val path = Paths.get(FILE_PATH)
         Files.write(path, lines)
-    }
-
-    companion object {
-        private const val FILE_PATH = "quizzes.txt"
     }
 
     @Throws(IOException::class)
