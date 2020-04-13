@@ -11,6 +11,13 @@ import java.util.*
 class QuizAppController {
     private var quizzes: MutableList<Quiz> = ArrayList()
     private val quizFileDao = QuizFileDao()
+
+    @GetMapping("/quiz")
+    fun quiz(): Quiz {
+        val index = Random().nextInt(quizzes.size)
+        return quizzes[index]
+    }
+
     @GetMapping("/show")
     fun show(): List<Quiz> {
         return quizzes
